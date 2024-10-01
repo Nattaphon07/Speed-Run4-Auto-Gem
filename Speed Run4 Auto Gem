@@ -1,0 +1,83 @@
+-- รอจนกว่าเกมจะโหลดเสร็จ
+repeat task.wait() until game:IsLoaded()
+
+-- สร้าง ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+if syn and syn.protect_gui then
+	syn.protect_gui(ScreenGui)
+	ScreenGui.Parent = game.CoreGui
+elseif gethui then
+	ScreenGui.Parent = gethui()
+else
+	ScreenGui.Parent = game.CoreGui
+end
+
+-- สร้าง TextLabel
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Parent = ScreenGui
+TextLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- พื้นหลังสีขาว
+TextLabel.Position = UDim2.new(0.5, -400, 0.5, -100) -- ปรับตำแหน่งตามต้องการ
+TextLabel.Size = UDim2.new(0, 800, 0, 200) -- ขนาดของ TextLabel ให้ใหญ่ขึ้น
+TextLabel.Text = "SCRIPT LOADED SUCCESSFULLY!" -- ข้อความที่ต้องการแสดง
+TextLabel.TextColor3 = Color3.new(0, 0, 0) -- สีข้อความ (สีดำ)
+TextLabel.TextScaled = true -- ข้อความจะปรับขนาดอัตโนมัติตาม TextLabel
+TextLabel.Font = Enum.Font.GothamBold -- แบบตัวอักษร
+TextLabel.TextTransparency = 1 -- เริ่มต้นด้วยความโปร่งใส 1 (ซ่อน)
+TextLabel.BackgroundTransparency = 1 -- เริ่มต้นด้วยความโปร่งใส 1 (ซ่อนพื้นหลัง)
+
+-- ทำให้ TextLabel ค่อย ๆ แสดงออก
+for Index = 1, 50, 2 do
+	TextLabel.TextTransparency = TextLabel.TextTransparency - 0.02 -- ปรับค่าความโปร่งใส
+	TextLabel.BackgroundTransparency = TextLabel.BackgroundTransparency - 0.02 -- ปรับค่าความโปร่งใสของพื้นหลัง
+	wait()
+end
+
+-- รอ 2 วินาทีก่อนให้ TextLabel หายไป
+wait(2)
+
+-- ทำให้ TextLabel ค่อย ๆ หายไป
+for Index = 1, 50, 2 do
+	TextLabel.TextTransparency = TextLabel.TextTransparency + 0.02 -- เพิ่มค่าความโปร่งใส
+	TextLabel.BackgroundTransparency = TextLabel.BackgroundTransparency + 0.02 -- เพิ่มความโปร่งใสของพื้นหลัง
+	wait()
+end
+
+-- ลบ ScreenGui
+ScreenGui:Destroy()
+
+-- แสดงเวลาในการโหลด
+print("Script loaded successfully!")
+
+-- ฟังก์ชันสำหรับการคัดลอกข้อมูล
+local function Copy()
+	setclipboard("No its done not updating anymore")
+end
+
+local Gang = Instance.new("BindableFunction")
+function Gang.OnInvoke(v)
+	if v == "Yes" then
+		Copy()
+		game.StarterGui:SetCore("SendNotification", { Title = "Notification", Text = "No, why don't you listen", Duration = 5 })
+	end
+end
+
+game.StarterGui:SetCore("SendNotification", { Title = "discontinued", Text = "Disabled gone no more updates", Duration = 5, Callback = Gang, Button1 = "Yes", Button2 ="No" })
+wait(5)
+
+-- ฟังก์ชันสำหรับการคัดลอกลิงก์ Youtube
+local function CopyYoutube()
+	setclipboard("https://discord.gg/r5WBHM3qR4")
+end
+
+local GangYoutube = Instance.new("BindableFunction")
+function GangYoutube.OnInvoke(v)
+	if v == "Yes" then
+		CopyYoutube()
+		game.StarterGui:SetCore("SendNotification", { Title = "Sirmemes youtube", Text = "Copying of Sirmemes youtube successful", Duration = 5 })
+	end
+end
+
+game.StarterGui:SetCore("SendNotification", { Title = "Sirmemes youtube", Text = "Copy to clipboard?", Duration = 5, Callback = GangYoutube, Button1 = "Yes", Button2 ="No" })
+
+-- รันสคริปต์ Legends of Speed
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nattaphon07/Speed-Run4/refs/heads/main/Speed%20Run4", true))()
